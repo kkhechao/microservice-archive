@@ -1,0 +1,275 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.BasicArchiveDmoMapper" >
+  <resultMap id="BaseResultMap" type="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.BasicArchiveDmo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="blood_type" property="bloodType" jdbcType="VARCHAR" />
+    <result column="profession" property="profession" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="native_place" property="nativePlace" jdbcType="VARCHAR" />
+    <result column="ethnic" property="ethnic" jdbcType="VARCHAR" />
+    <result column="family_member_id" property="familyMemberId" jdbcType="VARCHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, blood_type, profession, sex, name, native_place, ethnic, family_member_id, id_card
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.BasicArchiveDmoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_basic_archive
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_basic_archive
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_basic_archive
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.BasicArchiveDmoExample" >
+    delete from t_basic_archive
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.BasicArchiveDmo" >
+    insert into t_basic_archive (id, blood_type, profession, 
+      sex, name, native_place, 
+      ethnic, family_member_id, id_card
+      )
+    values (#{id,jdbcType=VARCHAR}, #{bloodType,jdbcType=VARCHAR}, #{profession,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{nativePlace,jdbcType=VARCHAR}, 
+      #{ethnic,jdbcType=VARCHAR}, #{familyMemberId,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.BasicArchiveDmo" >
+    insert into t_basic_archive
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="bloodType != null" >
+        blood_type,
+      </if>
+      <if test="profession != null" >
+        profession,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="nativePlace != null" >
+        native_place,
+      </if>
+      <if test="ethnic != null" >
+        ethnic,
+      </if>
+      <if test="familyMemberId != null" >
+        family_member_id,
+      </if>
+      <if test="idCard != null" >
+        id_card,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="bloodType != null" >
+        #{bloodType,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null" >
+        #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="ethnic != null" >
+        #{ethnic,jdbcType=VARCHAR},
+      </if>
+      <if test="familyMemberId != null" >
+        #{familyMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.BasicArchiveDmoExample" resultType="java.lang.Integer" >
+    select count(*) from t_basic_archive
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_basic_archive
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.bloodType != null" >
+        blood_type = #{record.bloodType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.profession != null" >
+        profession = #{record.profession,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null" >
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nativePlace != null" >
+        native_place = #{record.nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ethnic != null" >
+        ethnic = #{record.ethnic,jdbcType=VARCHAR},
+      </if>
+      <if test="record.familyMemberId != null" >
+        family_member_id = #{record.familyMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.idCard != null" >
+        id_card = #{record.idCard,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_basic_archive
+    set id = #{record.id,jdbcType=VARCHAR},
+      blood_type = #{record.bloodType,jdbcType=VARCHAR},
+      profession = #{record.profession,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      native_place = #{record.nativePlace,jdbcType=VARCHAR},
+      ethnic = #{record.ethnic,jdbcType=VARCHAR},
+      family_member_id = #{record.familyMemberId,jdbcType=VARCHAR},
+      id_card = #{record.idCard,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.BasicArchiveDmo" >
+    update t_basic_archive
+    <set >
+      <if test="bloodType != null" >
+        blood_type = #{bloodType,jdbcType=VARCHAR},
+      </if>
+      <if test="profession != null" >
+        profession = #{profession,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="nativePlace != null" >
+        native_place = #{nativePlace,jdbcType=VARCHAR},
+      </if>
+      <if test="ethnic != null" >
+        ethnic = #{ethnic,jdbcType=VARCHAR},
+      </if>
+      <if test="familyMemberId != null" >
+        family_member_id = #{familyMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.BasicArchiveDmo" >
+    update t_basic_archive
+    set blood_type = #{bloodType,jdbcType=VARCHAR},
+      profession = #{profession,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      native_place = #{nativePlace,jdbcType=VARCHAR},
+      ethnic = #{ethnic,jdbcType=VARCHAR},
+      family_member_id = #{familyMemberId,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

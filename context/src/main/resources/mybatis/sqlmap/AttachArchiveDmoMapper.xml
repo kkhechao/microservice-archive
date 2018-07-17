@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.AttachArchiveDmoMapper" >
+  <resultMap id="BaseResultMap" type="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.AttachArchiveDmo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="date" property="date" jdbcType="DATE" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="family_member_id" property="familyMemberId" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.AttachArchiveDmoWithBLOBs" extends="BaseResultMap" >
+    <result column="description" property="description" jdbcType="LONGVARCHAR" />
+    <result column="attach" property="attach" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id, type, date, create_time, family_member_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    description, attach
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_attach_archive
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_attach_archive
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.AttachArchiveDmoWithBLOBs" >
+    insert into t_attach_archive (id, type, date, 
+      create_time, family_member_id, description, 
+      attach)
+    values (#{id,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{date,jdbcType=DATE}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{familyMemberId,jdbcType=VARCHAR}, #{description,jdbcType=LONGVARCHAR}, 
+      #{attach,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.AttachArchiveDmoWithBLOBs" >
+    insert into t_attach_archive
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="date != null" >
+        date,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="familyMemberId != null" >
+        family_member_id,
+      </if>
+      <if test="description != null" >
+        description,
+      </if>
+      <if test="attach != null" >
+        attach,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        #{date,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="familyMemberId != null" >
+        #{familyMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="attach != null" >
+        #{attach,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.AttachArchiveDmoWithBLOBs" >
+    update t_attach_archive
+    <set >
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="date != null" >
+        date = #{date,jdbcType=DATE},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="familyMemberId != null" >
+        family_member_id = #{familyMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        description = #{description,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="attach != null" >
+        attach = #{attach,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.AttachArchiveDmoWithBLOBs" >
+    update t_attach_archive
+    set type = #{type,jdbcType=VARCHAR},
+      date = #{date,jdbcType=DATE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      family_member_id = #{familyMemberId,jdbcType=VARCHAR},
+      description = #{description,jdbcType=LONGVARCHAR},
+      attach = #{attach,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.AttachArchiveDmo" >
+    update t_attach_archive
+    set type = #{type,jdbcType=VARCHAR},
+      date = #{date,jdbcType=DATE},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      family_member_id = #{familyMemberId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

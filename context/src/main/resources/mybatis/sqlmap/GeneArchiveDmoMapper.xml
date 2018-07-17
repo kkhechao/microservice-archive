@@ -1,0 +1,356 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.GeneArchiveDmoMapper" >
+  <resultMap id="BaseResultMap" type="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.GeneArchiveDmo" >
+    <id column="id" property="id" jdbcType="VARCHAR" />
+    <result column="family_member_id" property="familyMemberId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sample_type" property="sampleType" jdbcType="VARCHAR" />
+    <result column="receive_date" property="receiveDate" jdbcType="DATE" />
+    <result column="report_date" property="reportDate" jdbcType="DATE" />
+    <result column="order_id" property="orderId" jdbcType="VARCHAR" />
+    <result column="audit_time" property="auditTime" jdbcType="TIMESTAMP" />
+    <result column="sample_id" property="sampleId" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.GeneArchiveDmoWithBLOBs" extends="BaseResultMap" >
+    <result column="detection_data" property="detectionData" jdbcType="LONGVARCHAR" />
+    <result column="suggest" property="suggest" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    id, family_member_id, name, sample_type, receive_date, report_date, order_id, audit_time, 
+    sample_id
+  </sql>
+  <sql id="Blob_Column_List" >
+    detection_data, suggest
+  </sql>
+  <select id="selectByExampleWithBLOBs" resultMap="ResultMapWithBLOBs" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.GeneArchiveDmoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_gene_archive
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.GeneArchiveDmoExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from t_gene_archive
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from t_gene_archive
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from t_gene_archive
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.GeneArchiveDmoExample" >
+    delete from t_gene_archive
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.GeneArchiveDmoWithBLOBs" >
+    insert into t_gene_archive (id, family_member_id, name, 
+      sample_type, receive_date, report_date, 
+      order_id, audit_time, sample_id, 
+      detection_data, suggest)
+    values (#{id,jdbcType=VARCHAR}, #{familyMemberId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
+      #{sampleType,jdbcType=VARCHAR}, #{receiveDate,jdbcType=DATE}, #{reportDate,jdbcType=DATE}, 
+      #{orderId,jdbcType=VARCHAR}, #{auditTime,jdbcType=TIMESTAMP}, #{sampleId,jdbcType=VARCHAR}, 
+      #{detectionData,jdbcType=LONGVARCHAR}, #{suggest,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.GeneArchiveDmoWithBLOBs" >
+    insert into t_gene_archive
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        id,
+      </if>
+      <if test="familyMemberId != null" >
+        family_member_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sampleType != null" >
+        sample_type,
+      </if>
+      <if test="receiveDate != null" >
+        receive_date,
+      </if>
+      <if test="reportDate != null" >
+        report_date,
+      </if>
+      <if test="orderId != null" >
+        order_id,
+      </if>
+      <if test="auditTime != null" >
+        audit_time,
+      </if>
+      <if test="sampleId != null" >
+        sample_id,
+      </if>
+      <if test="detectionData != null" >
+        detection_data,
+      </if>
+      <if test="suggest != null" >
+        suggest,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="id != null" >
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="familyMemberId != null" >
+        #{familyMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sampleType != null" >
+        #{sampleType,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveDate != null" >
+        #{receiveDate,jdbcType=DATE},
+      </if>
+      <if test="reportDate != null" >
+        #{reportDate,jdbcType=DATE},
+      </if>
+      <if test="orderId != null" >
+        #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sampleId != null" >
+        #{sampleId,jdbcType=VARCHAR},
+      </if>
+      <if test="detectionData != null" >
+        #{detectionData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="suggest != null" >
+        #{suggest,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.GeneArchiveDmoExample" resultType="java.lang.Integer" >
+    select count(*) from t_gene_archive
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update t_gene_archive
+    <set >
+      <if test="record.id != null" >
+        id = #{record.id,jdbcType=VARCHAR},
+      </if>
+      <if test="record.familyMemberId != null" >
+        family_member_id = #{record.familyMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null" >
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sampleType != null" >
+        sample_type = #{record.sampleType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.receiveDate != null" >
+        receive_date = #{record.receiveDate,jdbcType=DATE},
+      </if>
+      <if test="record.reportDate != null" >
+        report_date = #{record.reportDate,jdbcType=DATE},
+      </if>
+      <if test="record.orderId != null" >
+        order_id = #{record.orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.auditTime != null" >
+        audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.sampleId != null" >
+        sample_id = #{record.sampleId,jdbcType=VARCHAR},
+      </if>
+      <if test="record.detectionData != null" >
+        detection_data = #{record.detectionData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.suggest != null" >
+        suggest = #{record.suggest,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map" >
+    update t_gene_archive
+    set id = #{record.id,jdbcType=VARCHAR},
+      family_member_id = #{record.familyMemberId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      sample_type = #{record.sampleType,jdbcType=VARCHAR},
+      receive_date = #{record.receiveDate,jdbcType=DATE},
+      report_date = #{record.reportDate,jdbcType=DATE},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      sample_id = #{record.sampleId,jdbcType=VARCHAR},
+      detection_data = #{record.detectionData,jdbcType=LONGVARCHAR},
+      suggest = #{record.suggest,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update t_gene_archive
+    set id = #{record.id,jdbcType=VARCHAR},
+      family_member_id = #{record.familyMemberId,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      sample_type = #{record.sampleType,jdbcType=VARCHAR},
+      receive_date = #{record.receiveDate,jdbcType=DATE},
+      report_date = #{record.reportDate,jdbcType=DATE},
+      order_id = #{record.orderId,jdbcType=VARCHAR},
+      audit_time = #{record.auditTime,jdbcType=TIMESTAMP},
+      sample_id = #{record.sampleId,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.GeneArchiveDmoWithBLOBs" >
+    update t_gene_archive
+    <set >
+      <if test="familyMemberId != null" >
+        family_member_id = #{familyMemberId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sampleType != null" >
+        sample_type = #{sampleType,jdbcType=VARCHAR},
+      </if>
+      <if test="receiveDate != null" >
+        receive_date = #{receiveDate,jdbcType=DATE},
+      </if>
+      <if test="reportDate != null" >
+        report_date = #{reportDate,jdbcType=DATE},
+      </if>
+      <if test="orderId != null" >
+        order_id = #{orderId,jdbcType=VARCHAR},
+      </if>
+      <if test="auditTime != null" >
+        audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="sampleId != null" >
+        sample_id = #{sampleId,jdbcType=VARCHAR},
+      </if>
+      <if test="detectionData != null" >
+        detection_data = #{detectionData,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="suggest != null" >
+        suggest = #{suggest,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.GeneArchiveDmoWithBLOBs" >
+    update t_gene_archive
+    set family_member_id = #{familyMemberId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sample_type = #{sampleType,jdbcType=VARCHAR},
+      receive_date = #{receiveDate,jdbcType=DATE},
+      report_date = #{reportDate,jdbcType=DATE},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      sample_id = #{sampleId,jdbcType=VARCHAR},
+      detection_data = #{detectionData,jdbcType=LONGVARCHAR},
+      suggest = #{suggest,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.GeneArchiveDmo" >
+    update t_gene_archive
+    set family_member_id = #{familyMemberId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sample_type = #{sampleType,jdbcType=VARCHAR},
+      receive_date = #{receiveDate,jdbcType=DATE},
+      report_date = #{reportDate,jdbcType=DATE},
+      order_id = #{orderId,jdbcType=VARCHAR},
+      audit_time = #{auditTime,jdbcType=TIMESTAMP},
+      sample_id = #{sampleId,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

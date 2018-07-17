@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zqkh.archive.context.appservice.impl.domain.repository.query.FamilyMemberQuery">
+    <resultMap id="BaseResultMap"
+               type="com.zqkh.archive.context.appservice.impl.domain.repository.mappers.dmo.FamilyMemberDmo">
+        <id column="id" property="id" jdbcType="VARCHAR"/>
+        <result column="creater_id" property="createrId" jdbcType="VARCHAR"/>
+        <result column="appellation" property="appellation" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="avatar" property="avatar" jdbcType="VARCHAR"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+    id, creater_id, appellation, user_id, avatar
+    </sql>
+
+    <select id="selectFamilyMemberByCreaterId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        SELECT
+        <include refid="Base_Column_List"/>
+        FROM
+        t_family_member
+        where creater_id = #{createrId}
+    </select>
+
+
+    <select id="getFamilyMemberIdByCreateId" resultType="java.lang.String">
+        SELECT
+        t.`id`
+        FROM
+        t_family_member t
+        where creater_id = #{createId}
+    </select>
+
+    <select id="searchFamilyIdByName" resultType="java.lang.String">
+    SELECT
+        t.family_member_id
+    FROM
+        t_basic_archive t
+    WHERE
+        t.`name`    LIKE  CONCAT('%',#{name},'%')
+    </select>
+</mapper>
